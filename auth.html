@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Créez votre compte ou retrouvez votre espace Les Voix d’Âme.">
+  <title>Inscription et connexion — Les Voix d’Âme</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/global.css">
+</head>
+<body>
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+  <header class="site-header">
+    <div class="nav-wrap">
+      <a class="brand" href="index.html">
+        <span class="brand-mark" aria-hidden="true">V</span>
+        <span>Les Voix d’Âme<small>UNE PLUME. UNE VOIX. UN IMPACT.</small></span>
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="navigation">Menu</button>
+      <nav class="main-nav" id="navigation" aria-label="Navigation principale">
+        <a href="index.html">Accueil</a>
+        <a href="concours.html">Le concours</a>
+        <a href="candidats.html">Candidats</a>
+        <a href="vote.html">Voter</a>
+        <a href="informations.html#reglement">Règlement</a>
+        <a href="auth.html" aria-current="page">Connexion</a>
+        <a class="btn btn-blue" href="#inscription-candidat" data-open-candidate>S’inscrire</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenu">
+    <section class="section">
+      <div class="container">
+        <p class="notice notice-blue" id="access-message" hidden aria-live="polite"></p>
+        <div class="section-heading section-heading-centered">
+          <span class="eyebrow">Le premier pas vers la scène</span>
+          <h1>Préparez votre place, donnez une voix à vos mots.</h1>
+          <p>Créez votre compte pour commencer. Les informations saisies dans cette version de démonstration ne sont ni envoyées ni conservées.</p>
+        </div>
+
+        <div class="card form-card">
+          <div class="tabs" role="tablist" aria-label="Choisir une action">
+            <button class="tab-button" id="tab-candidate" type="button" role="tab" aria-selected="true" aria-controls="panel-candidate" tabindex="0" data-tab="candidate">Inscription candidat</button>
+            <button class="tab-button" id="tab-voter" type="button" role="tab" aria-selected="false" aria-controls="panel-voter" tabindex="-1" data-tab="voter">Inscription votant</button>
+            <button class="tab-button" id="tab-login" type="button" role="tab" aria-selected="false" aria-controls="panel-login" tabindex="-1" data-tab="login">Connexion</button>
+            <button class="tab-button" id="tab-reset" type="button" role="tab" aria-selected="false" aria-controls="panel-reset" tabindex="-1" data-tab="reset">Mot de passe oublié</button>
+          </div>
+
+          <section class="tab-panel" id="panel-candidate" role="tabpanel" aria-labelledby="tab-candidate" tabindex="0" data-panel="candidate">
+            <h2 id="inscription-candidat">Créer un compte candidat</h2>
+            <p class="muted">Renseignez vos informations pour préparer votre candidature. L’inscription annoncée est de 2 500 FCFA ; toute validation réelle devra être confirmée par l’organisation.</p>
+            <form data-demo-form novalidate>
+              <div class="form-grid">
+                <div class="field">
+                  <label for="cand-name">Nom et prénom <span aria-hidden="true">*</span></label>
+                  <input id="cand-name" name="name" autocomplete="name" required>
+                  <small class="form-help">Indiquez votre identité telle qu’elle devra figurer au dossier.</small>
+                </div>
+                <div class="field">
+                  <label for="artist-name">Nom d’artiste (facultatif)</label>
+                  <input id="artist-name" name="artistName" autocomplete="nickname">
+                </div>
+                <div class="field">
+                  <label for="cand-email">Adresse e-mail <span aria-hidden="true">*</span></label>
+                  <input id="cand-email" name="email" type="email" autocomplete="email" required>
+                  <small class="form-help">Utilisez une adresse à laquelle vous avez accès.</small>
+                </div>
+                <div class="field">
+                  <label for="birth-date">Date de naissance <span aria-hidden="true">*</span></label>
+                  <input id="birth-date" name="birthDate" type="date" required>
+                  <small class="form-help">Âge annoncé pour participer : de 15 à 35 ans.</small>
+                </div>
+                <div class="field">
+                  <label for="country">Pays de résidence <span aria-hidden="true">*</span></label>
+                  <input id="country" name="country" autocomplete="country-name" required>
+                </div>
+                <div class="field">
+                  <label for="phone">Téléphone (si demandé par l’organisation)</label>
+                  <input id="phone" name="phone" type="tel" autocomplete="tel">
+                </div>
+                <div class="field">
+                  <label for="registration-amount">Montant des frais d’inscription</label>
+                  <input id="registration-amount" name="registrationAmount" type="text" value="2 500 FCFA" readonly aria-describedby="registration-payment-help">
+                  <small class="form-help" id="registration-payment-help">Montant annoncé, à confirmer par l’organisation. Le paiement en ligne n’est pas encore disponible dans cette démonstration.</small>
+                </div>
+              </div>
+              <div class="field">
+                <label for="password-candidate">Mot de passe <span aria-hidden="true">*</span></label>
+                <div class="password-input">
+                  <input id="password-candidate" name="password" type="password" minlength="8" autocomplete="new-password" required aria-describedby="password-help">
+                  <button class="password-toggle" type="button" aria-label="Afficher le mot de passe" aria-pressed="false" data-password-toggle="password-candidate">
+                    <svg class="eye-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                    <svg class="eye-off" viewBox="0 0 24 24" aria-hidden="true"><path d="m3 3 18 18M10.6 10.6a2 2 0 0 0 2.8 2.8"></path><path d="M9.9 5.2A10.8 10.8 0 0 1 12 5c6.4 0 10 7 10 7a16 16 0 0 1-3.1 3.8M6.2 6.2C3.5 8 2 12 2 12s3.6 7 10 7c1 0 1.9-.2 2.7-.5"></path></svg>
+                  </button>
+                </div>
+                <small class="form-help" id="password-help">Choisissez au moins 8 caractères. Ne réutilisez pas un mot de passe important.</small>
+              </div>
+              <div class="field check-row">
+                <input id="terms-candidate" name="acceptRules" type="checkbox" required>
+                <label for="terms-candidate">J’ai pris connaissance du <a href="informations.html#reglement">projet de règlement</a> et je confirme l’avoir lu. <span aria-hidden="true">*</span></label>
+              </div>
+              <button class="btn btn-blue" type="submit">Créer mon compte candidat</button>
+              <p class="form-message" aria-live="polite"></p>
+            </form>
+          </section>
+
+          <section class="tab-panel" id="panel-voter" role="tabpanel" aria-labelledby="tab-voter" tabindex="0" data-panel="voter" hidden>
+            <h2>Créer un compte votant</h2>
+            <p class="muted">Préparez votre accès pour découvrir les candidats et les soutenir lorsque le vote sera ouvert. Aucun compte n’est créé dans cette démonstration.</p>
+            <form data-demo-form novalidate>
+              <div class="field">
+                <label for="voter-name">Nom et prénom <span aria-hidden="true">*</span></label>
+                <input id="voter-name" name="name" autocomplete="name" required>
+              </div>
+              <div class="field">
+                <label for="voter-email">Adresse e-mail <span aria-hidden="true">*</span></label>
+                <input id="voter-email" name="email" type="email" autocomplete="email" required>
+              </div>
+              <div class="field">
+                <label for="voter-password">Mot de passe <span aria-hidden="true">*</span></label>
+                <div class="password-input">
+                  <input id="voter-password" name="password" type="password" minlength="8" autocomplete="new-password" required>
+                  <button class="password-toggle" type="button" aria-label="Afficher le mot de passe" aria-pressed="false" data-password-toggle="voter-password">
+                    <svg class="eye-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                    <svg class="eye-off" viewBox="0 0 24 24" aria-hidden="true"><path d="m3 3 18 18M10.6 10.6a2 2 0 0 0 2.8 2.8"></path><path d="M9.9 5.2A10.8 10.8 0 0 1 12 5c6.4 0 10 7 10 7a16 16 0 0 1-3.1 3.8M6.2 6.2C3.5 8 2 12 2 12s3.6 7 10 7c1 0 1.9-.2 2.7-.5"></path></svg>
+                  </button>
+                </div>
+                <small class="form-help">Au moins 8 caractères.</small>
+              </div>
+              <button class="btn btn-blue" type="submit">Créer mon compte votant</button>
+              <p class="form-message" aria-live="polite"></p>
+            </form>
+          </section>
+
+          <section class="tab-panel" id="panel-login" role="tabpanel" aria-labelledby="tab-login" tabindex="0" data-panel="login" hidden>
+            <h2>Heureux de vous retrouver</h2>
+            <p class="muted">Après authentification, chaque compte sera dirigé vers son espace. En démonstration, la redirection est simulée et ne vérifie pas les identifiants.</p>
+            <form id="login-form" data-demo-form novalidate>
+              <div class="field">
+                <label for="account-role">Type de compte</label>
+                <select id="account-role" name="role">
+                  <option value="candidate">Candidat</option>
+                  <option value="voter">Votant</option>
+                </select>
+                <small class="form-help">Les accès jury et administration sont réservés aux comptes autorisés par l’organisation.</small>
+              </div>
+              <div class="field">
+                <label for="login-email">Adresse e-mail <span aria-hidden="true">*</span></label>
+                <input id="login-email" name="email" type="email" autocomplete="username" required>
+              </div>
+              <div class="field">
+                <label for="login-password">Mot de passe <span aria-hidden="true">*</span></label>
+                <div class="password-input">
+                  <input id="login-password" name="password" type="password" autocomplete="current-password" required>
+                  <button class="password-toggle" type="button" aria-label="Afficher le mot de passe" aria-pressed="false" data-password-toggle="login-password">
+                    <svg class="eye-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                    <svg class="eye-off" viewBox="0 0 24 24" aria-hidden="true"><path d="m3 3 18 18M10.6 10.6a2 2 0 0 0 2.8 2.8"></path><path d="M9.9 5.2A10.8 10.8 0 0 1 12 5c6.4 0 10 7 10 7a16 16 0 0 1-3.1 3.8M6.2 6.2C3.5 8 2 12 2 12s3.6 7 10 7c1 0 1.9-.2 2.7-.5"></path></svg>
+                  </button>
+                </div>
+              </div>
+              <button class="btn btn-blue" type="submit">Se connecter</button>
+              <p class="form-message" aria-live="polite"></p>
+            </form>
+          </section>
+
+          <section class="tab-panel" id="panel-reset" role="tabpanel" aria-labelledby="tab-reset" tabindex="0" data-panel="reset" hidden>
+            <h2>Réinitialiser votre mot de passe</h2>
+            <p class="muted">Indiquez l’adresse liée à votre compte. L’envoi d’un lien dépendra du service de messagerie du futur backend.</p>
+            <form data-demo-form novalidate>
+              <div class="field">
+                <label for="reset-email">Adresse e-mail <span aria-hidden="true">*</span></label>
+                <input id="reset-email" name="email" type="email" autocomplete="email" required>
+              </div>
+              <button class="btn btn-blue" type="submit">Demander un lien de réinitialisation</button>
+              <p class="form-message" aria-live="polite"></p>
+            </form>
+          </section>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div><h2>Les Voix d’Âme</h2><p>Une plume. Une voix. Un impact.</p></div>
+        <div><h3>Explorer</h3><div class="footer-links"><a href="index.html">Accueil</a><a href="concours.html">Le concours</a><a href="vote.html">Vote</a><a href="informations.html#reglement">Projet de règlement</a></div></div>
+        <div><h3>Accès</h3><div class="footer-links"><a href="#panel-login" data-open-login>Se connecter à mon compte</a><a href="informations.html#reglement">Lire le projet de règlement</a></div></div>
+      </div>
+      <div class="footer-bottom">Mode démonstration : aucun compte n’est créé ou connecté.</div>
+    </div>
+  </footer>
+
+  <script>
+    const menuButton = document.querySelector(".menu-toggle");
+    menuButton.addEventListener("click", () => {
+      const isOpen = menuButton.getAttribute("aria-expanded") !== "true";
+      menuButton.setAttribute("aria-expanded", String(isOpen));
+      document.querySelector(".main-nav").classList.toggle("is-open", isOpen);
+    });
+
+    document.querySelectorAll("[data-tab]").forEach((button) => {
+      button.addEventListener("click", () => {
+        document.querySelectorAll("[data-tab]").forEach((tab) => {
+          tab.setAttribute("aria-selected", String(tab === button));
+          tab.tabIndex = tab === button ? 0 : -1;
+        });
+        document.querySelectorAll("[data-panel]").forEach((panel) => {
+          panel.hidden = panel.id !== button.getAttribute("aria-controls");
+        });
+      });
+      button.addEventListener("keydown", (event) => {
+        const tabs = [...document.querySelectorAll("[data-tab]")];
+        const index = tabs.indexOf(button);
+        let nextIndex = index;
+        if (event.key === "ArrowRight") nextIndex = (index + 1) % tabs.length;
+        else if (event.key === "ArrowLeft") nextIndex = (index - 1 + tabs.length) % tabs.length;
+        else if (event.key === "Home") nextIndex = 0;
+        else if (event.key === "End") nextIndex = tabs.length - 1;
+        else return;
+        event.preventDefault();
+        tabs[nextIndex].focus();
+        tabs[nextIndex].click();
+      });
+    });
+
+    document.querySelectorAll("[data-password-toggle]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const input = document.getElementById(button.dataset.passwordToggle);
+        const showPassword = input.type === "password";
+        input.type = showPassword ? "text" : "password";
+        button.setAttribute("aria-pressed", String(showPassword));
+        button.setAttribute("aria-label", showPassword ? "Masquer le mot de passe" : "Afficher le mot de passe");
+      });
+    });
+
+    document.querySelectorAll("[data-demo-form]").forEach((form) => {
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const message = form.querySelector(".form-message");
+        const requiredFields = form.querySelectorAll("[required]");
+        let firstInvalidField = null;
+
+        requiredFields.forEach((field) => {
+          field.setCustomValidity("");
+          if (!field.value.trim() && field.type !== "checkbox") {
+            field.setCustomValidity("Veuillez renseigner ce champ obligatoire.");
+          } else if (field.type === "checkbox" && !field.checked) {
+            field.setCustomValidity("Veuillez lire le projet de règlement et confirmer votre acceptation.");
+          } else if (field.type === "email" && field.validity.typeMismatch) {
+            field.setCustomValidity("Saisissez une adresse e-mail au format nom@exemple.com.");
+          } else if (field.type === "password" && field.validity.tooShort) {
+            field.setCustomValidity("Le mot de passe doit contenir au moins 8 caractères.");
+          }
+          if (!field.checkValidity() && firstInvalidField === null) firstInvalidField = field;
+        });
+
+        if (firstInvalidField) {
+          firstInvalidField.reportValidity();
+          message.textContent = "Vérifiez les champs indiqués avant de continuer.";
+          return;
+        }
+
+        const birthDateField = form.querySelector("#birth-date");
+        if (birthDateField && birthDateField.value) {
+          const birthDate = new Date(`${birthDateField.value}T00:00:00`);
+          const today = new Date();
+          let age = today.getFullYear() - birthDate.getFullYear();
+          if (today.getMonth() < birthDate.getMonth() ||
+              (today.getMonth() === birthDate.getMonth() && today.getDate() < birthDate.getDate())) {
+            age -= 1;
+          }
+          if (age < 15 || age > 35) {
+            birthDateField.setCustomValidity("L’âge annoncé pour participer est de 15 à 35 ans.");
+            birthDateField.reportValidity();
+            message.textContent = "Vérifiez votre date de naissance : l’âge annoncé est de 15 à 35 ans.";
+            return;
+          }
+        }
+
+        if (form.id === "login-form") {
+          const role = form.querySelector("#account-role").value;
+          const destinations = {
+            candidate: "espace-candidat/index.html",
+            voter: "espace-votant/index.html"
+          };
+          sessionStorage.setItem("lva-demo-role", role);
+          message.textContent = "Mode démonstration : identifiants non vérifiés. Ouverture de l’espace de démonstration.";
+          window.location.assign(destinations[role]);
+          return;
+        }
+
+        message.textContent = "Démonstration : aucun compte n’a été créé. L’inscription et la validation seront disponibles après connexion au serveur.";
+      });
+    });
+
+    document.querySelectorAll("input").forEach((input) => {
+      input.addEventListener("input", () => input.setCustomValidity(""));
+      input.addEventListener("change", () => input.setCustomValidity(""));
+    });
+
+    document.querySelector("[data-open-login]").addEventListener("click", () => {
+      document.querySelector('[data-tab="login"]').click();
+    });
+
+    const accessMessage = document.querySelector("#access-message");
+    const requestedRole = new URLSearchParams(window.location.search).get("role");
+    if (requestedRole === "candidate" || requestedRole === "voter") {
+      document.querySelector("#account-role").value = requestedRole;
+    }
+    document.querySelector("[data-open-candidate]").addEventListener("click", () => {
+      document.querySelector('[data-tab="candidate"]').click();
+    });
+    if (new URLSearchParams(window.location.search).get("access") === "denied") {
+      accessMessage.hidden = false;
+      accessMessage.textContent = requestedRole === "jury" || requestedRole === "admin"
+        ? "Cet espace est réservé aux membres autorisés par l’organisation. L’accès réel nécessite une authentification du serveur."
+        : "Connectez-vous avec le type de compte correspondant pour accéder à votre espace.";
+      if (requestedRole !== "jury" && requestedRole !== "admin") {
+        document.querySelector('[data-tab="login"]').click();
+      }
+    }
+  </script>
+</body>
+</html>

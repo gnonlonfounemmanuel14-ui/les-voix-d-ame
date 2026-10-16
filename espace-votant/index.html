@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Gérez votre espace votant et découvrez comment soutenir les candidats des Voix d’Âme.">
+  <title>Espace votant — Les Voix d’Âme</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/global.css">
+</head>
+<body data-required-role="voter">
+  <script>
+    if (sessionStorage.getItem("lva-demo-role") === "voter") {
+      document.body.classList.add("role-authorized");
+    } else {
+      window.location.replace("../auth.html?access=denied&role=voter");
+    }
+  </script>
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+
+  <header class="site-header">
+    <div class="nav-wrap">
+      <a class="brand" href="../index.html" aria-label="Les Voix d’Âme, accueil">
+        <span class="brand-mark" aria-hidden="true">V</span>
+        <span>Les Voix d’Âme<small>UNE PLUME. UNE VOIX. UN IMPACT.</small></span>
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="navigation">Menu</button>
+      <nav class="main-nav" id="navigation" aria-label="Navigation principale">
+        <a href="../index.html">Accueil</a>
+        <a href="../concours.html">Le concours</a>
+        <a href="../candidats.html">Candidats</a>
+        <a href="../vote.html">Vote et packs</a>
+        <a href="../informations.html#reglement">Règlement</a>
+        <a href="../auth.html">Connexion</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenu">
+    <section class="section">
+      <div class="container">
+        <div class="dashboard-head">
+          <div>
+            <span class="eyebrow">Espace votant · démonstration</span>
+            <h1>Votre soutien commence par une découverte.</h1>
+            <p>Explorez les profils, consultez les règles du vote et retrouvez vos informations lorsque le service sera connecté.</p>
+          </div>
+          <button class="btn btn-quiet" type="button" data-logout>Déconnexion (démo)</button>
+        </div>
+
+        <p class="notice notice-blue">Aucun compte n’est connecté. Aucun achat, paiement, point ou vote n’est enregistré dans cette démonstration.</p>
+
+        <div class="dashboard-layout">
+          <nav class="dashboard-menu" aria-label="Navigation de l’espace votant">
+            <a href="#accueil">Vue d’ensemble</a>
+            <a href="#profil">Mon profil</a>
+            <a href="#packs">Packs et points</a>
+            <a href="#historique-achats">Achats et paiements</a>
+            <a href="#historique-votes">Mes votes</a>
+            <a href="#candidats">Trouver un candidat</a>
+            <a href="#notifications">Notifications</a>
+          </nav>
+
+          <div class="dashboard-content">
+            <section class="dashboard-section" id="accueil">
+              <h2>Vue d’ensemble</h2>
+              <div class="grid-3">
+                <article class="card">
+                  <p class="muted">Solde de points</p>
+                  <div class="stat">Non disponible</div>
+                  <p class="form-help">Le solde sera affiché après connexion sécurisée.</p>
+                </article>
+                <article class="card">
+                  <p class="muted">Achats</p>
+                  <div class="stat">Aucune donnée</div>
+                  <p class="form-help">Aucune transaction n’a été effectuée.</p>
+                </article>
+                <article class="card">
+                  <p class="muted">Votes enregistrés</p>
+                  <div class="stat">Aucune donnée</div>
+                  <p class="form-help">Aucun vote n’a été enregistré.</p>
+                </article>
+              </div>
+            </section>
+
+            <section class="dashboard-section" id="profil">
+              <h2>Mon profil votant</h2>
+              <p>Vos renseignements sont privés. Cette prévisualisation ne les envoie et ne les sauvegarde nulle part.</p>
+              <form class="card voter-profile-form" novalidate>
+                <div class="field">
+                  <label for="voter-full-name">Nom et prénom <span aria-hidden="true">*</span></label>
+                  <input id="voter-full-name" name="name" autocomplete="name" required>
+                </div>
+                <div class="field">
+                  <label for="voter-profile-email">Adresse e-mail <span aria-hidden="true">*</span></label>
+                  <input id="voter-profile-email" name="email" type="email" autocomplete="email" required>
+                </div>
+                <button class="btn btn-blue" type="submit">Vérifier mon profil (démo)</button>
+                <p class="form-message" aria-live="polite"></p>
+              </form>
+            </section>
+
+            <section class="dashboard-section" id="packs">
+              <h2>Packs et points</h2>
+              <article class="card">
+                <span class="eyebrow">Tarifs communiqués</span>
+                <h3>Consultez les offres avant de choisir.</h3>
+                <p>La référence communiquée est de 125 FCFA pour un vote correspondant à un point. Des packs avec bonus sont annoncés ; les conditions finales doivent encore être confirmées.</p>
+                <p class="notice">Cette démonstration ne vend pas de points. Les montants et les points devront être vérifiés côté serveur avant tout paiement.</p>
+                <a class="btn btn-blue" href="../vote.html">Voir les packs annoncés</a>
+              </article>
+            </section>
+
+            <section class="dashboard-section" id="historique-achats">
+              <h2>Historique des achats et paiements</h2>
+              <div class="empty-state">
+                <p>Aucune transaction à afficher.</p>
+                <p>Les informations de paiement sont privées et ne seront accessibles qu’au titulaire authentifié du compte.</p>
+              </div>
+            </section>
+
+            <section class="dashboard-section" id="historique-votes">
+              <h2>Mes votes</h2>
+              <div class="empty-state">
+                <p>Aucun vote n’a été enregistré dans cette démonstration.</p>
+                <p>Le candidat, le nombre de points et le statut d’un vote ne seront affichés qu’après validation du serveur.</p>
+              </div>
+            </section>
+
+            <section class="dashboard-section" id="candidats">
+              <h2>Trouver un candidat</h2>
+              <form class="candidate-search-form">
+                <div class="field">
+                  <label for="candidate-search">Nom ou nom d’artiste</label>
+                  <input id="candidate-search" type="search" placeholder="Ex. : rechercher dans l’annuaire">
+                </div>
+                <button class="btn btn-blue" type="submit">Rechercher dans l’annuaire</button>
+                <p class="form-message" aria-live="polite"></p>
+              </form>
+              <div class="empty-state">
+                <p>Aucun profil candidat réel n’est actuellement connecté.</p>
+                <a class="text-link" href="../candidats.html">Ouvrir l’annuaire public →</a>
+              </div>
+            </section>
+
+            <section class="dashboard-section" id="notifications">
+              <h2>Notifications</h2>
+              <div class="empty-state">
+                <p>Aucune notification serveur n’est disponible.</p>
+                <p>Les informations de période de vote seront publiées par l’organisation après confirmation.</p>
+              </div>
+            </section>
+          </div>
+        </div>
+
+        <p class="form-help">Cet espace de démonstration ne protège pas les comptes. La confidentialité et les autorisations doivent être assurées par le backend.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div><h2>Les Voix d’Âme</h2><p>Une plume. Une voix. Un impact.</p></div>
+        <div><h3>Explorer</h3><div class="footer-links"><a href="../index.html">Accueil</a><a href="../concours.html">Le concours</a><a href="../candidats.html">Candidats</a><a href="../vote.html">Vote et packs</a></div></div>
+        <div><h3>Accès</h3><div class="footer-links"><a href="../auth.html">Connexion</a><a href="../informations.html">Informations publiques</a></div></div>
+      </div>
+      <div class="footer-bottom">Espace votant de démonstration · aucune donnée personnelle n’est enregistrée.</div>
+    </div>
+  </footer>
+
+  <script>
+    const menuButton = document.querySelector(".menu-toggle");
+    menuButton.addEventListener("click", () => {
+      const menuIsOpen = menuButton.getAttribute("aria-expanded") !== "true";
+      menuButton.setAttribute("aria-expanded", String(menuIsOpen));
+      document.querySelector(".main-nav").classList.toggle("is-open", menuIsOpen);
+    });
+
+    const profileForm = document.querySelector(".voter-profile-form");
+    profileForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const invalidField = profileForm.querySelector(":invalid");
+      if (invalidField) {
+        invalidField.reportValidity();
+        profileForm.querySelector(".form-message").textContent = "Vérifiez les champs obligatoires avant de continuer.";
+        return;
+      }
+      profileForm.querySelector(".form-message").textContent =
+        "Démonstration : votre profil n’a pas été enregistré. La sauvegarde nécessite le serveur.";
+    });
+
+    profileForm.querySelectorAll("input").forEach((field) => {
+      field.addEventListener("input", () => field.setCustomValidity(""));
+    });
+
+    document.querySelector(".candidate-search-form").addEventListener("submit", (event) => {
+      event.preventDefault();
+      const searchTerm = document.querySelector("#candidate-search").value.trim();
+      const message = event.currentTarget.querySelector(".form-message");
+      message.textContent = searchTerm
+        ? "La recherche sera possible lorsque les profils publics seront connectés à l’annuaire."
+        : "Saisissez un nom ou un nom d’artiste, ou consultez directement l’annuaire public.";
+    });
+
+    document.querySelector("[data-logout]").addEventListener("click", () => {
+      sessionStorage.removeItem("lva-demo-role");
+      window.location.replace("../auth.html");
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+:root {
+  color-scheme: light;
+  --navy: #0A1F3D;
+  --blue: #002060;
+  --blue-mid: #1D4582;
+  --blue-pale: #CADCFC;
+  --gold: #D9B24C;
+  --surface: #F3F6FC;
+  --white: #FFFFFF;
+  --ink: #17253A;
+  --muted: #627089;
+  --line: #DCE4F0;
+  --success: #176B4D;
+  --shadow: 0 18px 50px rgba(10, 31, 61, .09);
+  --radius: 18px;
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-body: "DM Sans", Arial, sans-serif;
+}

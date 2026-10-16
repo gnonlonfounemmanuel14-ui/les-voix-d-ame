@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Suivez votre candidature et préparez votre audition pour Les Voix d’Âme.">
+  <title>Espace candidat — Les Voix d’Âme</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/global.css">
+</head>
+<body data-required-role="candidate">
+  <script>
+    if (sessionStorage.getItem("lva-demo-role") === "candidate") {
+      document.body.classList.add("role-authorized");
+    } else {
+      window.location.replace("../auth.html?access=denied&role=candidate");
+    }
+  </script>
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+
+  <header class="site-header">
+    <div class="nav-wrap">
+      <a class="brand" href="../index.html" aria-label="Les Voix d’Âme, accueil">
+        <span class="brand-mark" aria-hidden="true">V</span>
+        <span>Les Voix d’Âme<small>UNE PLUME. UNE VOIX. UN IMPACT.</small></span>
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="navigation">Menu</button>
+      <nav class="main-nav" id="navigation" aria-label="Navigation principale">
+        <a href="../index.html">Accueil</a>
+        <a href="../concours.html">Le concours</a>
+        <a href="../candidats.html">Candidats</a>
+        <a href="../vote.html">Vote</a>
+        <a href="../informations.html#reglement">Règlement</a>
+        <a href="../auth.html">Connexion</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenu">
+    <section class="section">
+      <div class="container">
+        <div class="dashboard-head">
+          <div>
+            <span class="eyebrow">Espace candidat · démonstration</span>
+            <h1>Faites avancer votre candidature, étape par étape.</h1>
+            <p>Préparez votre dossier et votre audition. Cette interface ne crée pas de compte et n’envoie aucune information au serveur.</p>
+          </div>
+          <button class="btn btn-quiet" type="button" data-logout>Déconnexion (démo)</button>
+        </div>
+
+        <div class="dashboard-layout">
+          <nav class="dashboard-menu" aria-label="Navigation de l’espace candidat">
+            <a href="#accueil">Vue d’ensemble</a>
+            <a href="#dossier">Mon dossier</a>
+            <a href="#audition">Vidéo d’audition</a>
+            <a href="#etapes">Étapes &amp; dates</a>
+            <a href="#annonces">Annonces</a>
+            <a href="#passeport">Passeport de la Voix</a>
+          </nav>
+
+          <div class="dashboard-content">
+            <section class="dashboard-section" id="accueil">
+              <h2>Votre tableau de bord</h2>
+              <div class="grid-3">
+                <article class="card">
+                  <p class="muted">Statut du compte</p>
+                  <span class="dashboard-status">Démonstration non connectée</span>
+                </article>
+                <article class="card">
+                  <p class="muted">Statut de la candidature</p>
+                  <span class="dashboard-status">Aucun dossier transmis</span>
+                </article>
+                <article class="card">
+                  <p class="muted">Préparation du dossier</p>
+                  <div class="progress" role="progressbar" aria-label="Progression de démonstration" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                    <span></span>
+                  </div>
+                  <p class="muted">Aucune donnée n’est sauvegardée.</p>
+                </article>
+              </div>
+              <p class="notice notice-blue">Utilisez les sections pour préparer vos informations. Une candidature ne sera réellement reçue qu’après connexion au serveur et confirmation par l’organisation.</p>
+            </section>
+
+            <section class="dashboard-section" id="dossier">
+              <h2>Préparer mon dossier</h2>
+              <p>Complétez les informations utiles à votre candidature. Seuls les champs marqués d’un astérisque sont obligatoires dans cet exemple.</p>
+              <form class="card candidate-form" novalidate>
+                <div class="form-grid">
+                  <div class="field">
+                    <label for="candidate-name">Nom et prénom <span aria-hidden="true">*</span></label>
+                    <input id="candidate-name" name="name" autocomplete="name" required>
+                  </div>
+                  <div class="field">
+                    <label for="candidate-stage-name">Nom d’artiste (facultatif)</label>
+                    <input id="candidate-stage-name" name="stageName" autocomplete="nickname">
+                  </div>
+                  <div class="field">
+                    <label for="candidate-birth-date">Date de naissance <span aria-hidden="true">*</span></label>
+                    <input id="candidate-birth-date" name="birthDate" type="date" required>
+                    <small class="form-help">Âge annoncé : de 15 à 35 ans. Les conditions définitives seront précisées par l’organisation.</small>
+                  </div>
+                  <div class="field">
+                    <label for="candidate-email">Adresse e-mail <span aria-hidden="true">*</span></label>
+                    <input id="candidate-email" name="email" type="email" autocomplete="email" required>
+                  </div>
+                  <div class="field">
+                    <label for="candidate-phone">Téléphone (si requis)</label>
+                    <input id="candidate-phone" name="phone" type="tel" autocomplete="tel">
+                  </div>
+                  <div class="field">
+                    <label for="candidate-country">Pays de résidence <span aria-hidden="true">*</span></label>
+                    <input id="candidate-country" name="country" autocomplete="country-name" required>
+                  </div>
+                  <div class="field">
+                    <label for="candidate-city">Ville (facultatif)</label>
+                    <input id="candidate-city" name="city" autocomplete="address-level2">
+                  </div>
+                </div>
+                <div class="field">
+                  <label for="candidate-biography">Biographie artistique</label>
+                  <textarea id="candidate-biography" name="biography" maxlength="1500" placeholder="Présentez votre parcours et votre rapport aux mots."></textarea>
+                  <small class="form-help">1 500 caractères maximum dans cette prévisualisation.</small>
+                </div>
+                <div class="field">
+                  <label for="candidate-introduction">Présentation personnelle</label>
+                  <textarea id="candidate-introduction" name="introduction" maxlength="1500" placeholder="Qu’aimeriez-vous partager avec le public ?"></textarea>
+                </div>
+                <div class="field check-row">
+                  <input id="rules-acceptance" name="rulesAcceptance" type="checkbox" required>
+                  <label for="rules-acceptance">J’ai lu le <a href="../informations.html#reglement">projet de règlement</a>. <span aria-hidden="true">*</span></label>
+                </div>
+                <button class="btn btn-blue" type="submit">Vérifier mon dossier (démo)</button>
+                <p class="form-message" aria-live="polite"></p>
+              </form>
+            </section>
+
+            <section class="dashboard-section" id="audition">
+              <h2>Préparer ma vidéo d’audition</h2>
+              <article class="card">
+                <p>Votre audition annoncée dure de 3 à 5 minutes et présente un texte poétique original sur un thème de votre choix. Choisissez un texte qui vous ressemble, puis prenez le temps de travailler l’articulation, le rythme et l’interprétation.</p>
+                <ul class="field-help-list">
+                  <li>Vérifiez que votre voix est audible et que votre visage ou votre présence sont visibles selon les consignes finales.</li>
+                  <li>La durée et le format devront être contrôlés par le serveur en production.</li>
+                  <li>Le choix du fichier ci-dessous reste local à votre navigateur ; il n’est pas téléversé.</li>
+                </ul>
+                <div class="field">
+                  <label for="audition-video">Choisir un fichier vidéo</label>
+                  <input id="audition-video" type="file" accept="video/*">
+                </div>
+                <p class="form-help" data-video-name>Aucun fichier sélectionné.</p>
+                <video class="file-preview" data-video-preview controls hidden aria-label="Aperçu local de la vidéo d’audition"></video>
+                <div class="dashboard-actions">
+                  <button class="btn btn-blue" type="button" data-preview-button disabled>Prévisualiser la vidéo</button>
+                  <button class="btn btn-quiet" type="button" data-clear-video disabled>Retirer le fichier</button>
+                </div>
+                <p class="form-message" data-video-message aria-live="polite">Le dépôt réel sera disponible après connexion au serveur.</p>
+              </article>
+            </section>
+
+            <section class="dashboard-section" id="etapes">
+              <h2>Votre parcours et les dates annoncées</h2>
+              <div class="grid-2">
+                <article class="card"><span class="step-number">Phase 1</span><h3>Présélection en ligne</h3><p>Examen des vidéos par le comité.</p></article>
+                <article class="card"><span class="step-number">Phase 2</span><h3>Quarts de finale</h3><p>Thème imposé, prestation annoncée de 3 minutes.</p></article>
+                <article class="card"><span class="step-number">Phase 3</span><h3>Demi-finale</h3><p>Présentiel, thème imposé et prestation annoncée de 3 minutes.</p></article>
+                <article class="card"><span class="step-number">Phase 4</span><h3>Grande finale</h3><p>Huit finalistes sont annoncés. La finale est prévue le 20 février 2027 à 16 h.</p></article>
+              </div>
+              <ul class="date-list">
+                <li class="date-item"><strong>Clôture des inscriptions</strong><time datetime="2026-12-31T23:59:00+01:00">31 décembre 2026 à 23 h 59</time></li>
+                <li class="date-item"><strong>Résultats de sélection</strong><time datetime="2027-01-08T10:00:00+01:00">8 janvier 2027 à 10 h</time></li>
+                <li class="date-item"><strong>Première phase en présentiel</strong><time datetime="2027-01-23T16:00:00+01:00">23 janvier 2027 à 16 h</time></li>
+                <li class="date-item"><strong>Deuxième phase en présentiel</strong><time datetime="2027-02-06T16:00:00+01:00">6 février 2027 à 16 h</time></li>
+                <li class="date-item"><strong>Grande finale</strong><time datetime="2027-02-20T16:00:00+01:00">20 février 2027 à 16 h</time></li>
+              </ul>
+              <p class="form-help">Les deux dates en présentiel ne sont pas rattachées ici à une phase particulière, faute de confirmation.</p>
+            </section>
+
+            <section class="dashboard-section" id="annonces">
+              <h2>Annonces et notifications</h2>
+              <div class="empty-state">
+                <p>Aucune annonce officielle n’est connectée à cette démonstration.</p>
+                <p>Les informations de validation et les modalités pour rejoindre le canal officiel seront communiquées par l’organisation après confirmation.</p>
+              </div>
+            </section>
+
+            <section class="dashboard-section" id="passeport">
+              <h2>Passeport de la Voix</h2>
+              <article class="card">
+                <p>Le support de présentation décrit le Passeport de la Voix comme un outil de progression : il aide à identifier les qualités du participant et ses axes d’amélioration.</p>
+                <div class="criteria">
+                  <span class="tag">Qualité de la plume</span>
+                  <span class="tag">Diction &amp; expression vocale</span>
+                  <span class="tag">Gestion du stress</span>
+                  <span class="tag">Argumentation</span>
+                  <span class="tag">Construction des idées</span>
+                  <span class="tag">Présence scénique</span>
+                  <span class="tag">Improvisation</span>
+                  <span class="tag">Impact global</span>
+                </div>
+                <p class="form-help">Le suivi individuel, ses accès et ses règles de partage restent à définir avant toute mise en service.</p>
+              </article>
+            </section>
+          </div>
+        </div>
+        <p class="form-help">Cet espace de démonstration n’assure ni authentification, ni contrôle de rôle, ni sauvegarde de données.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div><h2>Les Voix d’Âme</h2><p>Une plume. Une voix. Un impact.</p></div>
+        <div><h3>Explorer</h3><div class="footer-links"><a href="../index.html">Accueil</a><a href="../concours.html">Le concours</a><a href="../informations.html#reglement">Règlement</a></div></div>
+        <div><h3>Accès</h3><div class="footer-links"><a href="../auth.html">Connexion</a><a href="../informations.html">Informations publiques</a></div></div>
+      </div>
+      <div class="footer-bottom">Espace candidat de démonstration · aucune donnée n’est envoyée.</div>
+    </div>
+  </footer>
+
+  <script>
+    const menuButton = document.querySelector(".menu-toggle");
+    menuButton.addEventListener("click", () => {
+      const menuIsOpen = menuButton.getAttribute("aria-expanded") !== "true";
+      menuButton.setAttribute("aria-expanded", String(menuIsOpen));
+      document.querySelector(".main-nav").classList.toggle("is-open", menuIsOpen);
+    });
+
+    const candidateForm = document.querySelector(".candidate-form");
+    candidateForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const message = candidateForm.querySelector(".form-message");
+      const requiredFields = candidateForm.querySelectorAll("[required]");
+      let firstInvalidField = null;
+
+      requiredFields.forEach((field) => {
+        field.setCustomValidity("");
+        if (field.type === "checkbox" && !field.checked) {
+          field.setCustomValidity("Veuillez lire le projet de règlement avant de continuer.");
+        } else if (field.type !== "checkbox" && !field.value.trim()) {
+          field.setCustomValidity("Veuillez renseigner ce champ obligatoire.");
+        } else if (field.type === "email" && field.validity.typeMismatch) {
+          field.setCustomValidity("Saisissez une adresse e-mail au format nom@exemple.com.");
+        }
+        if (!field.checkValidity() && firstInvalidField === null) firstInvalidField = field;
+      });
+
+      const birthDateField = candidateForm.querySelector("#candidate-birth-date");
+      if (birthDateField.value && !birthDateField.validity.customError) {
+        const birthDate = new Date(`${birthDateField.value}T00:00:00`);
+        const today = new Date();
+        let age = today.getFullYear() - birthDate.getFullYear();
+        if (today.getMonth() < birthDate.getMonth() ||
+            (today.getMonth() === birthDate.getMonth() && today.getDate() < birthDate.getDate())) {
+          age -= 1;
+        }
+        if (age < 15 || age > 35) {
+          birthDateField.setCustomValidity("L’âge annoncé pour participer est de 15 à 35 ans.");
+          if (firstInvalidField === null) firstInvalidField = birthDateField;
+        }
+      }
+
+      if (firstInvalidField) {
+        firstInvalidField.reportValidity();
+        message.textContent = "Vérifiez les champs signalés avant de continuer.";
+        return;
+      }
+
+      message.textContent = "Démonstration : votre dossier n’a pas été enregistré. Cette action nécessitera le serveur.";
+    });
+
+    candidateForm.querySelectorAll("input, textarea").forEach((field) => {
+      field.addEventListener("input", () => field.setCustomValidity(""));
+      field.addEventListener("change", () => field.setCustomValidity(""));
+    });
+
+    const videoInput = document.querySelector("#audition-video");
+    const videoPreview = document.querySelector("[data-video-preview]");
+    const previewButton = document.querySelector("[data-preview-button]");
+    const clearVideoButton = document.querySelector("[data-clear-video]");
+    const videoName = document.querySelector("[data-video-name]");
+    const videoMessage = document.querySelector("[data-video-message]");
+
+    function clearVideoPreview() {
+      if (videoPreview.dataset.objectUrl) {
+        URL.revokeObjectURL(videoPreview.dataset.objectUrl);
+      }
+      videoPreview.removeAttribute("src");
+      delete videoPreview.dataset.objectUrl;
+      videoPreview.hidden = true;
+      videoInput.value = "";
+      videoName.textContent = "Aucun fichier sélectionné.";
+      videoMessage.textContent = "Le dépôt réel sera disponible après connexion au serveur.";
+      previewButton.disabled = true;
+      clearVideoButton.disabled = true;
+    }
+
+    videoInput.addEventListener("change", () => {
+      const file = videoInput.files[0];
+      if (!file) {
+        clearVideoPreview();
+        return;
+      }
+      if (!file.type.startsWith("video/")) {
+        clearVideoPreview();
+        videoMessage.textContent = "Choisissez un fichier vidéo reconnu par votre navigateur.";
+        return;
+      }
+      if (videoPreview.dataset.objectUrl) {
+        URL.revokeObjectURL(videoPreview.dataset.objectUrl);
+      }
+      const objectUrl = URL.createObjectURL(file);
+      videoPreview.dataset.objectUrl = objectUrl;
+      videoPreview.src = objectUrl;
+      videoName.textContent = `${file.name} — ${(file.size / 1048576).toFixed(1)} Mo`;
+      previewButton.disabled = false;
+      clearVideoButton.disabled = false;
+      videoPreview.onloadedmetadata = () => {
+        const duration = videoPreview.duration;
+        const isInRange = duration >= 180 && duration <= 300;
+        const minutes = Math.floor(duration / 60);
+        const seconds = Math.round(duration % 60);
+        videoMessage.textContent = `Durée de l’aperçu : ${minutes} min ${seconds} s. ${isInRange ? "La durée correspond à la plage annoncée." : "La durée est hors de la plage annoncée de 3 à 5 minutes."} Aucun envoi au serveur n’a été effectué.`;
+      };
+      videoPreview.onerror = () => {
+        videoMessage.textContent = "Le navigateur ne peut pas lire ce fichier en aperçu. Aucun envoi au serveur n’a été effectué.";
+      };
+    });
+
+    previewButton.addEventListener("click", () => {
+      videoPreview.hidden = false;
+      videoPreview.scrollIntoView({ behavior: "smooth", block: "center" });
+      videoPreview.play().catch(() => {
+        videoMessage.textContent = "Aperçu prêt. Lancez la lecture avec les contrôles vidéo.";
+      });
+    });
+
+    clearVideoButton.addEventListener("click", clearVideoPreview);
+
+    document.querySelector("[data-logout]").addEventListener("click", () => {
+      sessionStorage.removeItem("lva-demo-role");
+      window.location.replace("../auth.html");
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Découvrez le profil public d’un candidat des Voix d’Âme.">
+  <title>Profil candidat — Les Voix d’Âme</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/global.css">
+</head>
+<body>
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+
+  <header class="site-header">
+    <div class="nav-wrap">
+      <a class="brand" href="index.html" aria-label="Les Voix d’Âme, accueil">
+        <span class="brand-mark" aria-hidden="true">V</span>
+        <span>Les Voix d’Âme<small>UNE PLUME. UNE VOIX. UN IMPACT.</small></span>
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="navigation">Menu</button>
+      <nav class="main-nav" id="navigation" aria-label="Navigation principale">
+        <a href="index.html">Accueil</a>
+        <a href="concours.html">Le concours</a>
+        <a href="candidats.html" aria-current="page">Candidats</a>
+        <a href="vote.html">Vote</a>
+        <a href="informations.html#reglement">Règlement</a>
+        <a href="auth.html">Connexion</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenu">
+    <section class="hero">
+      <div class="container">
+        <span class="eyebrow">Portrait public</span>
+        <h1>Une voix, une histoire à découvrir.</h1>
+        <p>Chaque profil fera connaître le parcours et l’expression artistique d’un candidat. Seules les informations autorisées par la personne et validées par l’organisation seront publiées.</p>
+        <div class="button-row">
+          <a class="btn btn-primary" href="candidats.html">Parcourir les candidats</a>
+          <a class="btn btn-outline" href="auth.html">Présenter ma candidature</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="profile-title">
+      <div class="container">
+        <article class="card profile-empty">
+          <div class="icon-box" aria-hidden="true">V</div>
+          <span class="eyebrow">Profil public</span>
+          <h2 id="profile-title">Aucun profil candidat n’est encore publié</h2>
+          <p id="profile-status">Les profils apparaîtront ici lorsque des informations publiques auront été validées par l’organisation.</p>
+          <p class="notice notice-blue">Aucun candidat fictif n’est affiché. Les coordonnées privées, notes du jury et données de compte ne sont jamais destinées à cette page.</p>
+          <div class="button-row">
+            <a class="btn btn-blue" href="candidats.html">Retour à l’annuaire</a>
+            <a class="btn btn-quiet" href="vote.html">Comprendre le vote</a>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h2>Les Voix d’Âme</h2>
+          <p>Une plume. Une voix. Un impact.</p>
+        </div>
+        <div>
+          <h3>Explorer</h3>
+          <div class="footer-links">
+            <a href="index.html">Accueil</a>
+            <a href="concours.html">Le concours</a>
+            <a href="candidats.html">Candidats</a>
+          </div>
+        </div>
+        <div>
+          <h3>À découvrir</h3>
+          <div class="footer-links">
+            <a href="vote.html">Vote et packs</a>
+            <a href="informations.html#reglement">Projet de règlement</a>
+            <a href="auth.html">Inscription</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">Aucun profil candidat n’est connecté au site de démonstration.</div>
+    </div>
+  </footer>
+
+  <script>
+    const menuButton = document.querySelector(".menu-toggle");
+    menuButton.addEventListener("click", () => {
+      const menuIsOpen = menuButton.getAttribute("aria-expanded") !== "true";
+      menuButton.setAttribute("aria-expanded", String(menuIsOpen));
+      document.querySelector(".main-nav").classList.toggle("is-open", menuIsOpen);
+    });
+
+    const requestedCandidateId = new URLSearchParams(window.location.search).get("id");
+    if (requestedCandidateId) {
+      document.querySelector("#profile-status").textContent =
+        "Le profil demandé n’est pas disponible. Aucun candidat réel n’est actuellement connecté à l’annuaire.";
+    }
+  </script>
+</body>
+</html>
