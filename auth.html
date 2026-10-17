@@ -50,10 +50,10 @@
             <button class="tab-button" id="tab-reset" type="button" role="tab" aria-selected="false" aria-controls="panel-reset" tabindex="-1" data-tab="reset">Mot de passe oublié</button>
           </div>
 
-          <section class="tab-panel" id="panel-candidate" role="tabpanel" aria-labelledby="tab-candidate" tabindex="0" data-panel="candidate">
+          <section class="tab-panel" id="panel-candidate" role="tabpanel" aria-labelledby="tab-candidate" tabindex="0" data-panel="candidate" data-registration-deadline="2026-12-31T23:59:00+01:00">
             <h2 id="inscription-candidat">Créer un compte candidat</h2>
-            <p class="muted">Renseignez vos informations pour préparer votre candidature. L’inscription annoncée est de 2 500 FCFA ; toute validation réelle devra être confirmée par l’organisation.</p>
-            <form data-demo-form novalidate>
+            <p class="muted">Renseignez vos informations pour préparer votre candidature. Les frais affichés sont de 2 500 FCFA, convertis à titre indicatif selon la devise choisie ; toute validation réelle devra être confirmée par l’organisation.</p>
+            <form id="candidate-registration-form" data-demo-form novalidate>
               <div class="form-grid">
                 <div class="field">
                   <label for="cand-name">Nom et prénom <span aria-hidden="true">*</span></label>
@@ -72,14 +72,12 @@
                 <div class="field">
                   <label for="birth-date">Date de naissance <span aria-hidden="true">*</span></label>
                   <input id="birth-date" name="birthDate" type="date" required>
-                  <small class="form-help">Âge annoncé pour participer : de 15 à 35 ans.</small>
+                  <small class="form-help">Junior : 12 à 18 ans. Senior : 19 à 30 ans. Les pièces nécessaires pour les candidats mineurs seront précisées par l’organisation.</small>
                 </div>
+                <div class="field"><label for="candidate-country">Pays de résidence <span aria-hidden="true">*</span></label><select id="candidate-country" name="country" required><option value="">Choisir un pays</option></select></div>
+                <div class="field"><label for="candidate-currency">Devise associée</label><input id="candidate-currency" type="text" value="Choisissez un pays" readonly></div>
                 <div class="field">
-                  <label for="country">Pays de résidence <span aria-hidden="true">*</span></label>
-                  <input id="country" name="country" autocomplete="country-name" required>
-                </div>
-                <div class="field">
-                  <label for="phone">Téléphone (si demandé par l’organisation)</label>
+                  <label for="phone">Téléphone</label>
                   <input id="phone" name="phone" type="tel" autocomplete="tel">
                 </div>
                 <div class="field">
@@ -87,6 +85,10 @@
                   <input id="registration-amount" name="registrationAmount" type="text" value="2 500 FCFA" readonly aria-describedby="registration-payment-help">
                   <small class="form-help" id="registration-payment-help">Montant annoncé, à confirmer par l’organisation. Le paiement en ligne n’est pas encore disponible dans cette démonstration.</small>
                 </div>
+              </div>
+              <div class="field check-row" id="candidate-minor-consent-field" hidden>
+                <input id="candidate-minor-consent" name="minorAuthorizationConfirmed" type="checkbox">
+                <label for="candidate-minor-consent">Je confirme que l’autorisation de mon parent ou représentant légal sera fournie avant toute participation. <span aria-hidden="true">*</span></label>
               </div>
               <div class="field">
                 <label for="password-candidate">Mot de passe <span aria-hidden="true">*</span></label>
@@ -103,6 +105,7 @@
                 <input id="terms-candidate" name="acceptRules" type="checkbox" required>
                 <label for="terms-candidate">J’ai pris connaissance du <a href="informations.html#reglement">projet de règlement</a> et je confirme l’avoir lu. <span aria-hidden="true">*</span></label>
               </div>
+              <div class="field"><label for="candidate-payment-method">Mode de paiement</label><div class="payment-choice"><select id="candidate-payment-method" name="paymentMethod" required><option value="">Choisir un moyen de paiement</option><option value="mtn">MTN Mobile Money</option><option value="moov">Moov Money</option><option value="orange">Orange Money</option><option value="wave">Wave</option><option value="card">Carte bancaire</option></select><span class="payment-logo" data-provider="" id="candidate-payment-logo" aria-live="polite">Choisir un moyen de paiement</span></div><small class="form-help">Choisissez un moyen de paiement pour préparer l’inscription. Le règlement réel nécessite l’intégration sécurisée du prestataire.</small></div>
               <button class="btn btn-blue" type="submit">Créer mon compte candidat</button>
               <p class="form-message" aria-live="polite"></p>
             </form>
@@ -111,14 +114,91 @@
           <section class="tab-panel" id="panel-voter" role="tabpanel" aria-labelledby="tab-voter" tabindex="0" data-panel="voter" hidden>
             <h2>Créer un compte votant</h2>
             <p class="muted">Préparez votre accès pour découvrir les candidats et les soutenir lorsque le vote sera ouvert. Aucun compte n’est créé dans cette démonstration.</p>
-            <form data-demo-form novalidate>
+            <form id="voter-registration-form" data-demo-form novalidate>
+              <div class="form-grid">
+                <div class="field">
+                  <label for="voter-first-name">Prénom(s) <span aria-hidden="true">*</span></label>
+                  <input id="voter-first-name" name="firstName" autocomplete="given-name" required>
+                </div>
+                <div class="field">
+                  <label for="voter-last-name">Nom <span aria-hidden="true">*</span></label>
+                  <input id="voter-last-name" name="lastName" autocomplete="family-name" required>
+                </div>
+              </div>
               <div class="field">
-                <label for="voter-name">Nom et prénom <span aria-hidden="true">*</span></label>
-                <input id="voter-name" name="name" autocomplete="name" required>
+                <label for="voter-country">Pays <span aria-hidden="true">*</span></label>
+                <select id="voter-country" name="country" autocomplete="country-name" required>
+                  <option value="">Sélectionner un pays africain</option>
+                  <option value="DZ" data-dial="+213" data-currency="DZD">Algérie (+213 · DZD)</option>
+                  <option value="AO" data-dial="+244" data-currency="AOA">Angola (+244 · AOA)</option>
+                  <option value="BJ" data-dial="+229" data-currency="XOF" selected>Bénin (+229 · XOF)</option>
+                  <option value="BW" data-dial="+267" data-currency="BWP">Botswana (+267 · BWP)</option>
+                  <option value="BF" data-dial="+226" data-currency="XOF">Burkina Faso (+226 · XOF)</option>
+                  <option value="BI" data-dial="+257" data-currency="BIF">Burundi (+257 · BIF)</option>
+                  <option value="CV" data-dial="+238" data-currency="CVE">Cap-Vert (+238 · CVE)</option>
+                  <option value="CM" data-dial="+237" data-currency="XAF">Cameroun (+237 · XAF)</option>
+                  <option value="KM" data-dial="+269" data-currency="KMF">Comores (+269 · KMF)</option>
+                  <option value="CG" data-dial="+242" data-currency="XAF">Congo (+242 · XAF)</option>
+                  <option value="CD" data-dial="+243" data-currency="CDF">République démocratique du Congo (+243 · CDF)</option>
+                  <option value="CI" data-dial="+225" data-currency="XOF">Côte d’Ivoire (+225 · XOF)</option>
+                  <option value="DJ" data-dial="+253" data-currency="DJF">Djibouti (+253 · DJF)</option>
+                  <option value="EG" data-dial="+20" data-currency="EGP">Égypte (+20 · EGP)</option>
+                  <option value="ER" data-dial="+291" data-currency="ERN">Érythrée (+291 · ERN)</option>
+                  <option value="SZ" data-dial="+268" data-currency="SZL">Eswatini (+268 · SZL)</option>
+                  <option value="ET" data-dial="+251" data-currency="ETB">Éthiopie (+251 · ETB)</option>
+                  <option value="GA" data-dial="+241" data-currency="XAF">Gabon (+241 · XAF)</option>
+                  <option value="GM" data-dial="+220" data-currency="GMD">Gambie (+220 · GMD)</option>
+                  <option value="GH" data-dial="+233" data-currency="GHS">Ghana (+233 · GHS)</option>
+                  <option value="GN" data-dial="+224" data-currency="GNF">Guinée (+224 · GNF)</option>
+                  <option value="GW" data-dial="+245" data-currency="XOF">Guinée-Bissau (+245 · XOF)</option>
+                  <option value="GQ" data-dial="+240" data-currency="XAF">Guinée équatoriale (+240 · XAF)</option>
+                  <option value="KE" data-dial="+254" data-currency="KES">Kenya (+254 · KES)</option>
+                  <option value="LS" data-dial="+266" data-currency="LSL">Lesotho (+266 · LSL)</option>
+                  <option value="LR" data-dial="+231" data-currency="LRD">Libéria (+231 · LRD)</option>
+                  <option value="LY" data-dial="+218" data-currency="LYD">Libye (+218 · LYD)</option>
+                  <option value="MG" data-dial="+261" data-currency="MGA">Madagascar (+261 · MGA)</option>
+                  <option value="MW" data-dial="+265" data-currency="MWK">Malawi (+265 · MWK)</option>
+                  <option value="ML" data-dial="+223" data-currency="XOF">Mali (+223 · XOF)</option>
+                  <option value="MA" data-dial="+212" data-currency="MAD">Maroc (+212 · MAD)</option>
+                  <option value="MU" data-dial="+230" data-currency="MUR">Maurice (+230 · MUR)</option>
+                  <option value="MR" data-dial="+222" data-currency="MRU">Mauritanie (+222 · MRU)</option>
+                  <option value="MZ" data-dial="+258" data-currency="MZN">Mozambique (+258 · MZN)</option>
+                  <option value="NA" data-dial="+264" data-currency="NAD">Namibie (+264 · NAD)</option>
+                  <option value="NE" data-dial="+227" data-currency="XOF">Niger (+227 · XOF)</option>
+                  <option value="NG" data-dial="+234" data-currency="NGN">Nigéria (+234 · NGN)</option>
+                  <option value="CF" data-dial="+236" data-currency="XAF">République centrafricaine (+236 · XAF)</option>
+                  <option value="RW" data-dial="+250" data-currency="RWF">Rwanda (+250 · RWF)</option>
+                  <option value="ST" data-dial="+239" data-currency="STN">Sao Tomé-et-Principe (+239 · STN)</option>
+                  <option value="SN" data-dial="+221" data-currency="XOF">Sénégal (+221 · XOF)</option>
+                  <option value="SC" data-dial="+248" data-currency="SCR">Seychelles (+248 · SCR)</option>
+                  <option value="SL" data-dial="+232" data-currency="SLE">Sierra Leone (+232 · SLE)</option>
+                  <option value="SO" data-dial="+252" data-currency="SOS">Somalie (+252 · SOS)</option>
+                  <option value="SD" data-dial="+249" data-currency="SDG">Soudan (+249 · SDG)</option>
+                  <option value="SS" data-dial="+211" data-currency="SSP">Soudan du Sud (+211 · SSP)</option>
+                  <option value="ZA" data-dial="+27" data-currency="ZAR">Afrique du Sud (+27 · ZAR)</option>
+                  <option value="TZ" data-dial="+255" data-currency="TZS">Tanzanie (+255 · TZS)</option>
+                  <option value="TD" data-dial="+235" data-currency="XAF">Tchad (+235 · XAF)</option>
+                  <option value="TG" data-dial="+228" data-currency="XOF">Togo (+228 · XOF)</option>
+                  <option value="TN" data-dial="+216" data-currency="TND">Tunisie (+216 · TND)</option>
+                  <option value="UG" data-dial="+256" data-currency="UGX">Ouganda (+256 · UGX)</option>
+                  <option value="ZM" data-dial="+260" data-currency="ZMW">Zambie (+260 · ZMW)</option>
+                  <option value="ZW" data-dial="+263" data-currency="ZWG">Zimbabwe (+263 · ZWG)</option>
+                </select>
+                <small class="form-help" id="voter-currency-help">Monnaie associée au pays sélectionné : XOF. Aucun taux de change n’est configuré.</small>
               </div>
               <div class="field">
                 <label for="voter-email">Adresse e-mail <span aria-hidden="true">*</span></label>
                 <input id="voter-email" name="email" type="email" autocomplete="email" required>
+              </div>
+              <div class="form-grid">
+                <div class="field">
+                  <label for="voter-phone-dial">Indicatif téléphonique</label>
+                  <input id="voter-phone-dial" name="phoneDial" type="text" value="+229" readonly aria-label="Indicatif téléphonique proposé">
+                </div>
+                <div class="field">
+                  <label for="voter-phone">Numéro de téléphone <span aria-hidden="true">*</span></label>
+                  <input id="voter-phone" name="phone" type="tel" autocomplete="tel-national" inputmode="tel" pattern="[0-9 ()-]{6,20}" required>
+                </div>
               </div>
               <div class="field">
                 <label for="voter-password">Mot de passe <span aria-hidden="true">*</span></label>
@@ -131,6 +211,14 @@
                 </div>
                 <small class="form-help">Au moins 8 caractères.</small>
               </div>
+              <div class="field">
+                <label for="voter-password-confirm">Confirmer le mot de passe <span aria-hidden="true">*</span></label>
+                <input id="voter-password-confirm" name="passwordConfirmation" type="password" minlength="8" autocomplete="new-password" required>
+              </div>
+              <div class="field check-row">
+                <input id="voter-terms" name="acceptTerms" type="checkbox" required>
+                <label for="voter-terms">J’accepte le <a href="informations.html#reglement">projet de règlement</a> et les conditions applicables. <span aria-hidden="true">*</span></label>
+              </div>
               <button class="btn btn-blue" type="submit">Créer mon compte votant</button>
               <p class="form-message" aria-live="polite"></p>
             </form>
@@ -138,20 +226,33 @@
 
           <section class="tab-panel" id="panel-login" role="tabpanel" aria-labelledby="tab-login" tabindex="0" data-panel="login" hidden>
             <h2>Heureux de vous retrouver</h2>
-            <p class="muted">Après authentification, chaque compte sera dirigé vers son espace. En démonstration, la redirection est simulée et ne vérifie pas les identifiants.</p>
+            <p class="muted">La connexion par e-mail ou téléphone sera disponible après raccordement au serveur. Cette démonstration ne vérifie pas les identifiants et ne crée pas de session.</p>
             <form id="login-form" data-demo-form novalidate>
               <div class="field">
-                <label for="account-role">Type de compte</label>
-                <select id="account-role" name="role">
-                  <option value="candidate">Candidat</option>
-                  <option value="voter">Votant</option>
+                <label for="login-method">Se connecter avec</label>
+                <select id="login-method" name="loginMethod">
+                  <option value="email">Adresse e-mail</option>
+                  <option value="phone">Téléphone</option>
                 </select>
-                <small class="form-help">Les accès jury et administration sont réservés aux comptes autorisés par l’organisation.</small>
               </div>
-              <div class="field">
+              <div class="field"><label for="login-profile">Profil à ouvrir</label><select id="login-profile" name="profile"><option value="voter">Votant</option><option value="candidate">Candidat</option><option value="admin">Administrateur</option></select><small class="form-help">L’accès et la redirection vers le tableau de bord seront vérifiés par le serveur. Le profil administrateur est réservé à l’organisation.</small></div>
+              <div class="field" data-login-email>
                 <label for="login-email">Adresse e-mail <span aria-hidden="true">*</span></label>
                 <input id="login-email" name="email" type="email" autocomplete="username" required>
               </div>
+              <div class="form-grid" data-login-phone hidden>
+                <div class="field">
+                  <label for="login-phone-country">Pays / indicatif</label>
+                  <select id="login-phone-country" name="phoneCountry">
+                    <option value="" selected>Choisir un pays</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="login-phone">Numéro de téléphone <span aria-hidden="true">*</span></label>
+                  <input id="login-phone" name="phone" type="tel" autocomplete="tel-national" inputmode="tel" pattern="[0-9 ()-]{6,20}" disabled>
+                </div>
+              </div>
+              <p class="form-help" data-login-phone-dial hidden>Choisissez un pays pour afficher l’indicatif.</p>
               <div class="field">
                 <label for="login-password">Mot de passe <span aria-hidden="true">*</span></label>
                 <div class="password-input">
@@ -162,7 +263,7 @@
                   </button>
                 </div>
               </div>
-              <button class="btn btn-blue" type="submit">Se connecter</button>
+              <button class="btn btn-blue" type="submit">Connexion indisponible sans serveur</button>
               <p class="form-message" aria-live="polite"></p>
             </form>
           </section>
@@ -170,7 +271,7 @@
           <section class="tab-panel" id="panel-reset" role="tabpanel" aria-labelledby="tab-reset" tabindex="0" data-panel="reset" hidden>
             <h2>Réinitialiser votre mot de passe</h2>
             <p class="muted">Indiquez l’adresse liée à votre compte. L’envoi d’un lien dépendra du service de messagerie du futur backend.</p>
-            <form data-demo-form novalidate>
+            <form id="reset-form" data-demo-form novalidate>
               <div class="field">
                 <label for="reset-email">Adresse e-mail <span aria-hidden="true">*</span></label>
                 <input id="reset-email" name="email" type="email" autocomplete="email" required>
@@ -190,8 +291,7 @@
         <div><h2>Les Voix d’Âme</h2><p>Une plume. Une voix. Un impact.</p></div>
         <div><h3>Explorer</h3><div class="footer-links"><a href="index.html">Accueil</a><a href="concours.html">Le concours</a><a href="vote.html">Vote</a><a href="informations.html#reglement">Projet de règlement</a></div></div>
         <div><h3>Accès</h3><div class="footer-links"><a href="#panel-login" data-open-login>Se connecter à mon compte</a><a href="informations.html#reglement">Lire le projet de règlement</a></div></div>
-      </div>
-      <div class="footer-bottom">Mode démonstration : aucun compte n’est créé ou connecté.</div>
+      </div><div class="footer-contact" aria-label="Coordonn&eacute;es officielles et r&eacute;seaux sociaux"><h3>Contact et r&eacute;seaux sociaux</h3><div class="footer-links"><a href="mailto:lesvoixdames@gmail.com">lesvoixdames@gmail.com</a><a href="tel:+2290161054084">+229 01 61 05 40 84</a><a href="tel:+2290162015159">+229 01 62 01 51 59</a><span>Facebook · TikTok · Instagram · YouTube (liens &agrave; ajouter)</span></div></div><div class="footer-bottom">Mode démonstration : aucun compte n’est créé ou connecté.</div>
     </div>
   </footer>
 
@@ -238,19 +338,47 @@
       });
     });
 
+    const candidateBirthDate = document.querySelector("#birth-date");
+    const minorConsentField = document.querySelector("#candidate-minor-consent-field");
+    const minorConsent = document.querySelector("#candidate-minor-consent");
+    function updateMinorAuthorizationField() {
+      if (!candidateBirthDate.value) {
+        minorConsentField.hidden = true;
+        minorConsent.required = false;
+        return;
+      }
+      const birthDate = new Date(`${candidateBirthDate.value}T00:00:00`);
+      const today = new Date();
+      let age = today.getFullYear() - birthDate.getFullYear();
+      if (today.getMonth() < birthDate.getMonth() ||
+          (today.getMonth() === birthDate.getMonth() && today.getDate() < birthDate.getDate())) {
+        age -= 1;
+      }
+      const isMinor = Number.isFinite(age) && age >= 12 && age < 18;
+      minorConsentField.hidden = !isMinor;
+      minorConsent.required = isMinor;
+      if (!isMinor) minorConsent.checked = false;
+    }
+    candidateBirthDate.addEventListener("change", updateMinorAuthorizationField);
+
     document.querySelectorAll("[data-demo-form]").forEach((form) => {
       form.addEventListener("submit", (event) => {
         event.preventDefault();
         const message = form.querySelector(".form-message");
+        const birthDateField = form.querySelector("#birth-date");
+        updateMinorAuthorizationField();
         const requiredFields = form.querySelectorAll("[required]");
         let firstInvalidField = null;
 
         requiredFields.forEach((field) => {
+          if (field.disabled) return;
           field.setCustomValidity("");
           if (!field.value.trim() && field.type !== "checkbox") {
             field.setCustomValidity("Veuillez renseigner ce champ obligatoire.");
           } else if (field.type === "checkbox" && !field.checked) {
-            field.setCustomValidity("Veuillez lire le projet de règlement et confirmer votre acceptation.");
+            field.setCustomValidity(field.id === "candidate-minor-consent"
+              ? "Confirmez que l’autorisation du parent ou représentant légal sera fournie."
+              : "Veuillez lire le projet de règlement et confirmer votre acceptation.");
           } else if (field.type === "email" && field.validity.typeMismatch) {
             field.setCustomValidity("Saisissez une adresse e-mail au format nom@exemple.com.");
           } else if (field.type === "password" && field.validity.tooShort) {
@@ -265,7 +393,6 @@
           return;
         }
 
-        const birthDateField = form.querySelector("#birth-date");
         if (birthDateField && birthDateField.value) {
           const birthDate = new Date(`${birthDateField.value}T00:00:00`);
           const today = new Date();
@@ -274,23 +401,34 @@
               (today.getMonth() === birthDate.getMonth() && today.getDate() < birthDate.getDate())) {
             age -= 1;
           }
-          if (age < 15 || age > 35) {
-            birthDateField.setCustomValidity("L’âge annoncé pour participer est de 15 à 35 ans.");
+          if (age < 12 || age > 30) {
+            birthDateField.setCustomValidity("Les catégories annoncées sont Junior (12 à 18 ans) et Senior (19 à 30 ans).");
             birthDateField.reportValidity();
-            message.textContent = "Vérifiez votre date de naissance : l’âge annoncé est de 15 à 35 ans.";
+            message.textContent = "Vérifiez votre date de naissance : les catégories annoncées sont Junior (12 à 18 ans) et Senior (19 à 30 ans).";
             return;
           }
         }
 
         if (form.id === "login-form") {
-          const role = form.querySelector("#account-role").value;
-          const destinations = {
-            candidate: "espace-candidat/index.html",
-            voter: "espace-votant/index.html"
-          };
-          sessionStorage.setItem("lva-demo-role", role);
-          message.textContent = "Mode démonstration : identifiants non vérifiés. Ouverture de l’espace de démonstration.";
-          window.location.assign(destinations[role]);
+          const demoRole = document.querySelector("#login-profile").value;
+          const demoDestinations = { voter: "espace-votant/index.html", candidate: "espace-candidat/index.html", admin: "admin/index.html" };
+          sessionStorage.setItem("lva-demo-role", demoRole);
+          message.textContent = "Connexion de démonstration : les identifiants n’ont pas été vérifiés. Ouverture de l’espace choisi…";
+          window.location.assign(demoDestinations[demoRole]);
+          return;
+        }
+
+        if (form.id === "reset-form") {
+          message.textContent = "Aucun lien n’a été envoyé. La récupération du mot de passe nécessite le serveur et un service de messagerie.";
+          return;
+        }
+
+        const voterPassword = form.querySelector("#voter-password");
+        const voterPasswordConfirmation = form.querySelector("#voter-password-confirm");
+        if (voterPassword && voterPassword.value !== voterPasswordConfirmation.value) {
+          voterPasswordConfirmation.setCustomValidity("Les deux mots de passe ne correspondent pas.");
+          voterPasswordConfirmation.reportValidity();
+          message.textContent = "Vérifiez la confirmation du mot de passe.";
           return;
         }
 
@@ -309,8 +447,82 @@
 
     const accessMessage = document.querySelector("#access-message");
     const requestedRole = new URLSearchParams(window.location.search).get("role");
-    if (requestedRole === "candidate" || requestedRole === "voter") {
-      document.querySelector("#account-role").value = requestedRole;
+
+    const voterCountry = document.querySelector("#voter-country");
+    const voterPhoneDial = document.querySelector("#voter-phone-dial");
+    const voterCurrencyHelp = document.querySelector("#voter-currency-help");
+    const loginPhoneCountry = document.querySelector("#login-phone-country");
+    const loginPhoneDialMessage = document.querySelector("[data-login-phone-dial]");
+    const candidateCountry = document.querySelector("#candidate-country");
+    [...voterCountry.options].slice(1).forEach((option) => candidateCountry.add(option.cloneNode(true)));
+    const candidateCurrency = document.querySelector("#candidate-currency");
+    const registrationAmount = document.querySelector("#registration-amount");
+    candidateCountry.addEventListener("change", async () => {
+      const selected = candidateCountry.selectedOptions[0];
+      const currency = selected.dataset.currency;
+      if (!currency) { candidateCurrency.value = "Choisissez un pays"; registrationAmount.value = "2 500 FCFA"; return; }
+      candidateCurrency.value = currency;
+      if (currency === "XOF") { registrationAmount.value = "2 500 FCFA"; return; }
+      registrationAmount.value = "Conversion en cours…";
+      try {
+        const response = await fetch("https://open.er-api.com/v6/latest/USD");
+        const data = await response.json();
+        if (data.result !== "success" || !data.rates[currency] || !data.rates.XOF) throw new Error();
+        registrationAmount.value = `${new Intl.NumberFormat("fr-FR", {maximumFractionDigits: 2}).format(2500 / data.rates.XOF * data.rates[currency])} ${currency} (≈ 2 500 FCFA)`;
+      } catch { registrationAmount.value = `Taux ${currency} indisponible`; }
+    });
+    const candidatePaymentMethod = document.querySelector("#candidate-payment-method");
+    const candidatePaymentLogo = document.querySelector("#candidate-payment-logo");
+    candidatePaymentMethod.addEventListener("change", () => {
+      const marks = { mtn: "MTN Mobile Money", moov: "Moov Money", orange: "Orange Money", wave: "Wave", card: "Carte bancaire" };
+      candidatePaymentLogo.dataset.provider = candidatePaymentMethod.value;
+      candidatePaymentLogo.textContent = marks[candidatePaymentMethod.value] || "Choisir un moyen de paiement";
+    });
+    [...voterCountry.options].slice(1).forEach((option) => {
+      loginPhoneCountry.add(option.cloneNode(true));
+    });
+    loginPhoneCountry.selectedIndex = 0;
+    voterCountry.addEventListener("change", () => {
+      const selected = voterCountry.selectedOptions[0];
+      const dial = selected.dataset.dial;
+      if (dial) {
+        voterPhoneDial.value = dial;
+        voterCurrencyHelp.textContent = `Monnaie associée au pays sélectionné : ${selected.dataset.currency}. Aucun taux de change n’est configuré.`;
+      }
+    });
+    loginPhoneCountry.addEventListener("change", () => {
+      const selected = loginPhoneCountry.selectedOptions[0];
+      loginPhoneDialMessage.textContent = selected.dataset.dial
+        ? `Indicatif sélectionné : ${selected.dataset.dial}.`
+        : "Choisissez un pays pour afficher l’indicatif.";
+    });
+
+    const loginMethod = document.querySelector("#login-method");
+    const loginEmailGroup = document.querySelector("[data-login-email]");
+    const loginPhoneGroup = document.querySelector("[data-login-phone]");
+    const loginEmail = document.querySelector("#login-email");
+    const loginPhone = document.querySelector("#login-phone");
+    loginMethod.addEventListener("change", () => {
+      const usePhone = loginMethod.value === "phone";
+      loginEmailGroup.hidden = usePhone;
+      loginEmail.disabled = usePhone;
+      loginEmail.required = !usePhone;
+      loginPhoneGroup.hidden = !usePhone;
+      loginPhone.disabled = !usePhone;
+      loginPhone.required = usePhone;
+      loginPhoneCountry.required = usePhone;
+      loginPhoneDialMessage.hidden = !usePhone;
+    });
+
+    const registrationClose = new Date(document.querySelector("#panel-candidate").dataset.registrationDeadline);
+    const registrationMessage = document.querySelector("#registration-payment-help");
+    const candidateRegistrationForm = document.querySelector("#panel-candidate form");
+    if (Date.now() >= registrationClose.getTime()) {
+      registrationMessage.textContent = "La date limite annoncée est passée. Les inscriptions sont fermées dans cette interface ; le serveur devra faire appliquer cette échéance.";
+      candidateRegistrationForm.querySelector('button[type="submit"]').disabled = true;
+    } else {
+      const localDeadline = registrationClose.toLocaleString("fr-FR", { dateStyle: "long", timeStyle: "short" });
+      registrationMessage.textContent = `Frais annoncés : 2 500 FCFA (conversion indicative selon la devise choisie). Échéance locale affichée : ${localDeadline}. Aucun paiement en ligne n’est disponible dans cette démonstration.`;
     }
     document.querySelector("[data-open-candidate]").addEventListener("click", () => {
       document.querySelector('[data-tab="candidate"]').click();

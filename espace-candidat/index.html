@@ -100,7 +100,7 @@
                   <div class="field">
                     <label for="candidate-birth-date">Date de naissance <span aria-hidden="true">*</span></label>
                     <input id="candidate-birth-date" name="birthDate" type="date" required>
-                    <small class="form-help">Âge annoncé : de 15 à 35 ans. Les conditions définitives seront précisées par l’organisation.</small>
+                    <small class="form-help">Junior : 12 à 18 ans. Senior : 19 à 30 ans. Une autorisation du parent ou du représentant légal est requise pour les candidats mineurs.</small>
                   </div>
                   <div class="field">
                     <label for="candidate-email">Adresse e-mail <span aria-hidden="true">*</span></label>
@@ -132,6 +132,10 @@
                   <input id="rules-acceptance" name="rulesAcceptance" type="checkbox" required>
                   <label for="rules-acceptance">J’ai lu le <a href="../informations.html#reglement">projet de règlement</a>. <span aria-hidden="true">*</span></label>
                 </div>
+                <div class="field check-row" id="candidate-minor-consent-field" hidden>
+                  <input id="candidate-minor-consent" name="minorAuthorizationConfirmed" type="checkbox">
+                  <label for="candidate-minor-consent">Je confirme que l’autorisation de mon parent ou représentant légal sera fournie avant toute participation. <span aria-hidden="true">*</span></label>
+                </div>
                 <button class="btn btn-blue" type="submit">Vérifier mon dossier (démo)</button>
                 <p class="form-message" aria-live="polite"></p>
               </form>
@@ -140,11 +144,12 @@
             <section class="dashboard-section" id="audition">
               <h2>Préparer ma vidéo d’audition</h2>
               <article class="card">
-                <p>Votre audition annoncée dure de 3 à 5 minutes et présente un texte poétique original sur un thème de votre choix. Choisissez un texte qui vous ressemble, puis prenez le temps de travailler l’articulation, le rythme et l’interprétation.</p>
+                <p>Pour la présélection, la vidéo doit durer de 1 min 30 à 2 min et présenter un texte original sur le thème général de l’éducation, avec un sous-thème choisi librement. La vidéo doit être envoyée au numéro officiel communiqué ci-dessous.</p>
                 <ul class="field-help-list">
                   <li>Vérifiez que votre voix est audible et que votre visage ou votre présence sont visibles selon les consignes finales.</li>
                   <li>La durée et le format devront être contrôlés par le serveur en production.</li>
                   <li>Le choix du fichier ci-dessous reste local à votre navigateur ; il n’est pas téléversé.</li>
+                  <li>Envoi officiel : <a href="tel:+2290161054084">+229 01 61 05 40 84</a>. Aucun lien WhatsApp n’a été communiqué.</li>
                 </ul>
                 <div class="field">
                   <label for="audition-video">Choisir un fichier vidéo</label>
@@ -216,8 +221,7 @@
         <div><h2>Les Voix d’Âme</h2><p>Une plume. Une voix. Un impact.</p></div>
         <div><h3>Explorer</h3><div class="footer-links"><a href="../index.html">Accueil</a><a href="../concours.html">Le concours</a><a href="../informations.html#reglement">Règlement</a></div></div>
         <div><h3>Accès</h3><div class="footer-links"><a href="../auth.html">Connexion</a><a href="../informations.html">Informations publiques</a></div></div>
-      </div>
-      <div class="footer-bottom">Espace candidat de démonstration · aucune donnée n’est envoyée.</div>
+      </div><div class="footer-contact" aria-label="Coordonn&eacute;es officielles et r&eacute;seaux sociaux"><h3>Contact et r&eacute;seaux sociaux</h3><div class="footer-links"><a href="mailto:lesvoixdames@gmail.com">lesvoixdames@gmail.com</a><a href="tel:+2290161054084">+229 01 61 05 40 84</a><a href="tel:+2290162015159">+229 01 62 01 51 59</a><span>Facebook · TikTok · Instagram · YouTube (liens &agrave; ajouter)</span></div></div><div class="footer-bottom">Espace candidat de démonstration · aucune donnée n’est envoyée.</div>
     </div>
   </footer>
 
@@ -230,8 +234,31 @@
     });
 
     const candidateForm = document.querySelector(".candidate-form");
+    const candidateBirthDate = candidateForm.querySelector("#candidate-birth-date");
+    const minorConsentField = candidateForm.querySelector("#candidate-minor-consent-field");
+    const minorConsent = candidateForm.querySelector("#candidate-minor-consent");
+    function updateMinorAuthorizationField() {
+      if (!candidateBirthDate.value) {
+        minorConsentField.hidden = true;
+        minorConsent.required = false;
+        return;
+      }
+      const birthDate = new Date(`${candidateBirthDate.value}T00:00:00`);
+      const today = new Date();
+      let age = today.getFullYear() - birthDate.getFullYear();
+      if (today.getMonth() < birthDate.getMonth() ||
+          (today.getMonth() === birthDate.getMonth() && today.getDate() < birthDate.getDate())) {
+        age -= 1;
+      }
+      const isMinor = Number.isFinite(age) && age >= 12 && age < 18;
+      minorConsentField.hidden = !isMinor;
+      minorConsent.required = isMinor;
+      if (!isMinor) minorConsent.checked = false;
+    }
+    candidateBirthDate.addEventListener("change", updateMinorAuthorizationField);
     candidateForm.addEventListener("submit", (event) => {
       event.preventDefault();
+      updateMinorAuthorizationField();
       const message = candidateForm.querySelector(".form-message");
       const requiredFields = candidateForm.querySelectorAll("[required]");
       let firstInvalidField = null;
@@ -239,7 +266,9 @@
       requiredFields.forEach((field) => {
         field.setCustomValidity("");
         if (field.type === "checkbox" && !field.checked) {
-          field.setCustomValidity("Veuillez lire le projet de règlement avant de continuer.");
+          field.setCustomValidity(field.id === "candidate-minor-consent"
+            ? "Confirmez que l’autorisation du parent ou représentant légal sera fournie."
+            : "Veuillez lire le projet de règlement avant de continuer.");
         } else if (field.type !== "checkbox" && !field.value.trim()) {
           field.setCustomValidity("Veuillez renseigner ce champ obligatoire.");
         } else if (field.type === "email" && field.validity.typeMismatch) {
@@ -257,8 +286,8 @@
             (today.getMonth() === birthDate.getMonth() && today.getDate() < birthDate.getDate())) {
           age -= 1;
         }
-        if (age < 15 || age > 35) {
-          birthDateField.setCustomValidity("L’âge annoncé pour participer est de 15 à 35 ans.");
+        if (age < 12 || age > 30) {
+          birthDateField.setCustomValidity("Les catégories annoncées sont Junior (12 à 18 ans) et Senior (19 à 30 ans).");
           if (firstInvalidField === null) firstInvalidField = birthDateField;
         }
       }
@@ -320,10 +349,10 @@
       clearVideoButton.disabled = false;
       videoPreview.onloadedmetadata = () => {
         const duration = videoPreview.duration;
-        const isInRange = duration >= 180 && duration <= 300;
+        const isInRange = duration >= 90 && duration <= 120;
         const minutes = Math.floor(duration / 60);
         const seconds = Math.round(duration % 60);
-        videoMessage.textContent = `Durée de l’aperçu : ${minutes} min ${seconds} s. ${isInRange ? "La durée correspond à la plage annoncée." : "La durée est hors de la plage annoncée de 3 à 5 minutes."} Aucun envoi au serveur n’a été effectué.`;
+        videoMessage.textContent = `Durée de l’aperçu : ${minutes} min ${seconds} s. ${isInRange ? "La durée correspond à la plage annoncée de 1 min 30 à 2 min." : "La durée est hors de la plage annoncée de 1 min 30 à 2 min."} Aucun envoi au serveur n’a été effectué.`;
       };
       videoPreview.onerror = () => {
         videoMessage.textContent = "Le navigateur ne peut pas lire ce fichier en aperçu. Aucun envoi au serveur n’a été effectué.";
